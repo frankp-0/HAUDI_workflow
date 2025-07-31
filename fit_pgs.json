@@ -1,0 +1,13 @@
+{
+  "fit_pgs.method": "HAUDI",
+  "fit_pgs.bk_file": "./test_data/toy.bk",
+  "fit_pgs.info_file": "./test_data/toy_info.txt",
+  "fit_pgs.dims_file": "./test_data/toy_dims.txt",
+  "fit_pgs.fbm_samples_file": "./test_data/toy_samples.txt",
+  "fit_pgs.phenotype_file": "./test_data/toy.pheno",
+  "fit_pgs.phenotype": "phenotype",
+  "fit_pgs.output_prefix": "toy",
+  "fit_pgs.gamma_min": 0.5,
+  "fit_pgs.gamma_max": 3,
+  "fit_pgs.n_gamma": 8
+}
