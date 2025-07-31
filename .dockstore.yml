@@ -5,3 +5,13 @@ workflows:
       primaryDescriptorPath: /make_fbm.wdl
       testParameterFiles:
           - /make_fbm.json
+    - name: convert_lanc
+      subclass: WDL
+      primaryDescriptorPath: /convert_lanc.wdl
+      testParameterFiles:
+          - /convert_lanc.json
+    - name: fit_pgs
+      subclass: WDL
+      primaryDescriptorPath: /fit_pgs.wdl
+      testParameterFiles:
+          - /fit_pgs.json
