@@ -27,7 +27,7 @@ version 1.0
 
 workflow make_fbm {
   input {
-    # list of Admix-kit .lanc files (per-chromosome)
+    # List of Admix-kit .lanc files (per-chromosome)
     Array[File] lanc_files
 
     # Corresponding PLINK2 files (per-chromosome)
