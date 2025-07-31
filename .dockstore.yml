@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+    - name: make_fbm
+      subclass: WDL
+      primaryDescriptorPath: /make_fbm.wdl
+      testParameterFiles:
+          - /make_fbm.json

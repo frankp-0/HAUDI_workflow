@@ -1,0 +1,29 @@
+{
+  "make_fbm.lanc_files": [
+    "test_data/chr20.lanc",
+    "test_data/chr21.lanc",
+    "test_data/chr22.lanc"
+  ],
+  "make_fbm.pgen_files": [
+    "test_data/chr20.pgen",
+    "test_data/chr21.pgen",
+    "test_data/chr22.pgen"
+  ],
+  "make_fbm.pvar_files": [
+    "test_data/chr20.pvar",
+    "test_data/chr21.pvar",
+    "test_data/chr22.pvar"
+  ],
+  "make_fbm.psam_files": [
+    "test_data/chr20.psam",
+    "test_data/chr21.psam",
+    "test_data/chr22.psam"
+  ],
+  "make_fbm.fbm_prefix": "test",
+  "make_fbm.min_ac": 10,
+  "make_fbm.anc_names": [
+    "Pop0",
+    "Pop1"
+  ],
+  "make_fbm.chunk_size": 14
+}
