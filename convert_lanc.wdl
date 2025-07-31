@@ -11,7 +11,7 @@
 #   - An array of filenames for the .lanc output
 #
 # Output files:
-#   - lanc_output_files
+#   - lanc_files
 #
 # Assumes:
 #   - Input ancestry_files and PLINK2 files are per-chromosome
