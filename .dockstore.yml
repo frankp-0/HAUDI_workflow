@@ -10,8 +10,8 @@ workflows:
       primaryDescriptorPath: /convert_lanc.wdl
       testParameterFiles:
           - /convert_lanc.json
-    - name: fit_pgs
+    - name: fit_haudi
       subclass: WDL
-      primaryDescriptorPath: /fit_pgs.wdl
+      primaryDescriptorPath: /fit_haudi.wdl
       testParameterFiles:
-          - /fit_pgs.json
+          - /fit_haudi.json
