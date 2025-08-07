@@ -1,4 +1,4 @@
-# fit_pgs.wdl
+# fit_haudi.wdl
 #
 # This WDL workflow fits a HAUDI or GAUDI polygenic score
 # using a specially-formatted Filebacked Big Matrix (FBM)
@@ -25,7 +25,7 @@
 
 version 1.0
 
-workflow fit_pgs {
+workflow fit_haudi {
   input {
     # Either "HAUDI" or "GAUDI"
     String method
@@ -64,7 +64,7 @@ workflow fit_pgs {
     Int memory_gb = 4
   }
 
-  call fit_pgs {
+  call fit_haudi {
     input:
       method = method,
       family = family,
@@ -84,14 +84,14 @@ workflow fit_pgs {
   }
 
   output {
-    File model_file = fit_pgs.model_file
-    File pgs_file = fit_pgs.pgs_file
-    File effects_file = fit_pgs.effects_file
+    File model_file = fit_haudi.model_file
+    File pgs_file = fit_haudi.pgs_file
+    File effects_file = fit_haudi.effects_file
   }
 }
 
 
-task fit_pgs {
+task fit_haudi {
   input {
     String method
     String? family

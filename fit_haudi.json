@@ -1,0 +1,13 @@
+{
+  "fit_haudi.method": "HAUDI",
+  "fit_haudi.bk_file": "./test_data/toy.bk",
+  "fit_haudi.info_file": "./test_data/toy_info.txt",
+  "fit_haudi.dims_file": "./test_data/toy_dims.txt",
+  "fit_haudi.fbm_samples_file": "./test_data/toy_samples.txt",
+  "fit_haudi.phenotype_file": "./test_data/toy.pheno",
+  "fit_haudi.phenotype": "phenotype",
+  "fit_haudi.output_prefix": "toy",
+  "fit_haudi.gamma_min": 0.5,
+  "fit_haudi.gamma_max": 3,
+  "fit_haudi.n_gamma": 8
+}
