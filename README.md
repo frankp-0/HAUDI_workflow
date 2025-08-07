@@ -127,6 +127,7 @@ gamma_min | The minimum value for the gamma tuning parameter
 gamma_max | The max value for the gamma tuning parameter
 n_gamma | The number of values to test for the gamma tuning parameter
 variants_file | One variant ID per line, used to subset variants for PGS
+n_folds | The number of cross-validation folds to use (default 5)
 memory_gb | Memory in gb to use (default 4)
 
 The following outputs are returned:

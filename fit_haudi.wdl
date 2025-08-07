@@ -10,12 +10,13 @@
 #   info file, samples file)
 #   - A phenotype file and phenotype name
 #   - An output prefix
-#   - The min, max, and total number of gamma values (used to construct array of
-#   tuning parameters)
 #
 # Optional inputs:
 #   - The family of the phenotype: "gaussian" (default) or "binomial"
 #   - A subset of samples or variants to train the PGS on
+#   - The min, max, and total number of gamma values (used to construct array of
+#   tuning parameters)
+#   - The number of CV folds (default = 5)
 #
 # Output files:
 #   - {output_prefix}_model.rds: Serialized R object containing the model
@@ -60,6 +61,9 @@ workflow fit_haudi {
     # Subset the variants used in model fitting (one ID per line)
     File? variants_file
 
+    # Specify number of cross-validation folds
+    Int n_folds = 5
+
     # Resources
     Int memory_gb = 4
   }
@@ -80,6 +84,7 @@ workflow fit_haudi {
       gamma_max = gamma_max,
       n_gamma = n_gamma,
       variants_file = variants_file,
+      n_folds = n_folds,
       memory_gb = memory_gb
   }
 
@@ -107,6 +112,7 @@ task fit_haudi {
     Float gamma_max = 5
     Float n_gamma = 5
     File? variants_file
+    Int n_folds
     Int memory_gb = 4
   }
 
@@ -127,7 +133,8 @@ task fit_haudi {
       --gamma_min ~{gamma_min} \
       --gamma_max ~{gamma_max} \
       --n_gamma ~{n_gamma} \
-      ~{if defined(variants_file) then "--variants_file " + variants_file else ""}
+      ~{if defined(variants_file) then "--variants_file " + variants_file else ""} \
+      --n_folds ~{n_folds}
     >>>
 
   output {

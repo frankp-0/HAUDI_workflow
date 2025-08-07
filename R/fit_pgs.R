@@ -17,7 +17,8 @@ option_list <- list(
   make_option(c("--gamma_min"), type = "numeric"),
   make_option(c("--gamma_max"), type = "numeric"),
   make_option(c("--n_gamma"), type = "numeric"),
-  make_option(c("--variants_file"), type = "character", default = NULL)
+  make_option(c("--variants_file"), type = "character", default = NULL),
+  make_option(c("--n_folds"), type = "integer", default = 5)
 )
 opt <- parse_args(OptionParser(option_list = option_list))
 
@@ -64,7 +65,7 @@ if (opt$method == "GAUDI") {
     y_train = y[ind_train],
     ind_train = ind_train,
     gamma_vec = seq(opt$gamma_min, opt$gamma_max, length.out = opt$n_gamma),
-    k = 5,
+    k = opt$n_folds,
     variants = variants
   )
 
@@ -95,7 +96,7 @@ if (opt$method == "GAUDI") {
     y_train = y[ind_train],
     ind.train = ind_train,
     gamma_vec = seq(opt$gamma_min, opt$gamma_max, length.out = opt$n_gamma),
-    k = 5,
+    k = opt$n_folds,
     family = opt$family,
     variants = variants
   )
