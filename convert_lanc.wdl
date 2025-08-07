@@ -8,7 +8,6 @@
 # Required inputs:
 #   - Matching arrays of local ancestry files and PLINK2 files
 #   - The ancestry file format (either "RFMix" or "FLARE")
-#   - An array of filenames for the .lanc output
 #
 # Output files:
 #   - lanc_files
@@ -33,9 +32,6 @@ workflow convert_lanc {
     Array[File] pvar_files
     Array[File] psam_files
 
-    # Output .lanc files
-    Array[String] lanc_output_files
-
     # Resources
     Int disk_size_gb = 16
     Int memory_gb = 4
@@ -49,7 +45,6 @@ workflow convert_lanc {
         pgen_file = pgen_files[i],
         pvar_file = pvar_files[i],
         psam_file = psam_files[i],
-        lanc_output_file = lanc_output_files[i],
         disk_size_gb = disk_size_gb,
         memory_gb = memory_gb,
     }
@@ -67,28 +62,28 @@ task convert_lanc {
     File pgen_file
     File pvar_file
     File psam_file
-    String lanc_output_file
     Int disk_size_gb
     Int memory_gb
   }
+
+  String plink_prefix = basename(pgen_file, ".pgen")
 
   command <<<
     # Symlink PLINK2 files and write their base names to a file
     ln -s ~{pgen_file} .
     ln -s ~{pvar_file} .
     ln -s ~{psam_file} .
-    plink_prefix=$(basename ~{pgen_file} .pgen)
 
     # Call R script to convert to .lanc
     Rscript /scripts/convert_lanc.R \
       --file ~{ancestry_file} \
       --file_fmt ~{ancestry_file_fmt} \
-      --plink_prefix  $plink_prefix \
-      --output ~{lanc_output_file}
+      --plink_prefix ~{plink_prefix} \
+      --output ~{plink_prefix}.lanc
   >>>
 
   output {
-    File lanc = "${lanc_output_file}"
+    File lanc = "~{plink_prefix}.lanc"
   }
 
 

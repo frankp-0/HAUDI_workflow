@@ -40,7 +40,6 @@ ancestry_file_fmt | A string with the ancestry file format (either "FLARE" or "R
 pgen_files | An array of PLINK2 .pgen files
 pvar_files | An array PLINK2 .pvar files
 psam_files | An array PLINK2 .psam files
-lanc_output_files | An array of strings representing output ".lanc" file paths
 
 The following inputs are optional:
 
@@ -53,7 +52,7 @@ The following outputs are returned:
 
 output | description
 --- | ---
-lanc_files | An array of .lanc output files corresponding to lanc_output_files
+lanc_files | An array of .lanc output files with the same prefix as the PLINK2 input
 
 ## make_fbm
 

@@ -11,8 +11,5 @@
   ],
   "convert_lanc.psam_files": [
     "test_data/chr20.psam"
-  ],
-  "convert_lanc.lanc_output_files": [
-    "chr20.from_flare.lanc"
   ]
 }
