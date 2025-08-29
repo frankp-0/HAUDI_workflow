@@ -1,5 +1,10 @@
 version: 1.2
 workflows:
+    - name: vcf_to_plink2
+      subclass: WDL
+      primaryDescriptorPath: /vcf_to_plink2.wdl
+      testParameterFiles:
+          - /vcf_to_plink2.json
     - name: make_fbm
       subclass: WDL
       primaryDescriptorPath: /make_fbm.wdl
