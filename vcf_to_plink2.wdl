@@ -57,7 +57,7 @@ task vcf_to_plink2 {
   command <<<
     plink2 \
       --vcf ~{vcf_file} \
-      ~{if defined(samples_keep) then "--keep " + samples_keep else ""}
+      ~{if defined(samples_keep) then "--keep " + samples_keep else ""} \
       --make-pgen \
       --output-chr ~{output_chr_code} \
       --out ~{out_prefix}
