@@ -37,9 +37,9 @@ The following outputs are returned:
 
 output | description
 --- | ---
-out_pgen | An array of pgen files
-out_pvar | An array of pvar files
-out_psam | An array of psam files
+pgen | An array of pgen files
+pvar | An array of pvar files
+psam | An array of psam files
 
 ## convert_lanc
 

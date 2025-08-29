@@ -30,9 +30,9 @@ workflow vcf_to_plink2 {
   }
 
   output {
-    Array[File] out_pgen = vcf_to_plink2_chrom.pgen
-    Array[File] out_pvar = vcf_to_plink2_chrom.pvar
-    Array[File] out_psam = vcf_to_plink2_chrom.psam
+    Array[File] pgen = vcf_to_plink2_chrom.pgen
+    Array[File] pvar = vcf_to_plink2_chrom.pvar
+    Array[File] psam = vcf_to_plink2_chrom.psam
   }
 
   meta {
