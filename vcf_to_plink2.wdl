@@ -7,6 +7,7 @@
 #
 # Optional inputs:
 #   - Chromosome code (passed to "--output-chr")
+#   - File with samples to keep
 #
 # Output files:
 #   - {vcf_prefix}.pgen
@@ -18,6 +19,7 @@ workflow vcf_to_plink2 {
   input {
     Array[File] vcf_files
     String output_chr_code = "chrM"
+    File? samples_keep
   }
 
 
@@ -25,7 +27,8 @@ workflow vcf_to_plink2 {
     call vcf_to_plink2 as vcf_to_plink2_chrom {
       input:
         vcf_file = vcf_files[i],
-        output_chr_code = output_chr_code
+        output_chr_code = output_chr_code,
+        samples_keep = samples_keep
     }
   }
 
@@ -45,6 +48,7 @@ task vcf_to_plink2 {
   input {
     File vcf_file
     String output_chr_code
+    File? samples_keep
   }
 
   Int disk_size = ceil(3*size(vcf_file, "GB")) + 10
@@ -53,6 +57,7 @@ task vcf_to_plink2 {
   command <<<
     plink2 \
       --vcf ~{vcf_file} \
+      ~{if defined(samples_keep) then "--keep " + samples_keep else ""}
       --make-pgen \
       --output-chr ~{output_chr_code} \
       --out ~{out_prefix}

@@ -32,6 +32,7 @@ The following inputs are optional:
 input | description
 --- | ---
 output_chr_code | Default: "chrM"
+samples_keep | File with IDs to keep
 
 The following outputs are returned:
 
