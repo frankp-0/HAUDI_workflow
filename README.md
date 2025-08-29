@@ -7,13 +7,39 @@ This repository contains WDL code, corresponding JSON input examples, test data,
 and a Dockerfile. The docker image corresponding the Dockerfile is available on
 Docker Hub: [frankpo/run_haudi](https://hub.docker.com/r/frankpo/run_haudi).
 
-This repository contains three workflows:
+This repository contains four workflows:
 
+- [vcf_to_plink2](#vcf_to_plink2): Convert a set of vcf files to plink2 pgen files
 - [convert_lanc](#convert_lanc): Convert a set of RFMix or FLARE local ancestry
 files to the ".lanc" format used in [admix-kit](https://kangchenghou.github.io/admix-kit/)
 - [make_fbm](#make_fbm): Convert ".lanc" local ancestry and PLINK2 files
 into the input Filebacked Big Matrix (FBM) used by HAUDI/GAUDI
 - [fit_gaudi](#fit_gaudi): Fit a HAUDI or GAUDI polygenic score
+
+## vcf_to_plink2
+
+This workflow takes an array of VCF files and converts them to PLINK2 pgen format.
+Optionally, you can specify an argument for "--output-chr" (e.g. "chrM" format).
+
+The following inputs must be provided:
+
+input | description
+--- | ---
+vcf_files | An array of VCF files
+
+The following inputs are optional:
+
+input | description
+--- | ---
+output_chr_code | Default: "chrM"
+
+The following outputs are returned:
+
+output | description
+--- | ---
+out_pgen | An array of pgen files
+out_pvar | An array of pvar files
+out_psam | An array of psam files
 
 ## convert_lanc
 
