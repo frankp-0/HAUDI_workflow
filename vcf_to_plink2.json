@@ -1,0 +1,8 @@
+{
+  "vcf_to_plink2.vcf_files": [
+    "test_data/chr20.vcf.gz",
+    "test_data/chr21.vcf.gz",
+    "test_data/chr22.vcf.gz"
+  ],
+  "vcf_to_plink2.output_chr_code": "chrM"
+}
