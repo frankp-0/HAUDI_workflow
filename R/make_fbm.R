@@ -31,8 +31,6 @@ if (!is.null(opt$anc_names)) {
   opt$anc_names <- unlist(strsplit(opt$anc_names, ","))
 }
 
-print(opt)
-
 result <- HAUDI::make_fbm(
   lanc_files = opt$lanc_files,
   plink_prefixes = opt$plink_prefixes,
