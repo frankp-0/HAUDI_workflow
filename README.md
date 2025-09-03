@@ -111,6 +111,7 @@ variants_file | A file with one variant ID per line used to subset the FBM
 min_ac | The minimum count to retain an FBM column (anc-specific or total genotype)
 samples_file | A file with one sample ID per line used to subset the FBM
 chunk_size | Max number of variants to read  from .pgen file at a time (default 400)
+phenotype_id_col | A string with the name of the sample ID column in the phenotype file (default "\#IID")
 disk_size_gb | Disk size in GB to use (default 16)
 memory_gb | Memory in GB to use (default 4)
 
