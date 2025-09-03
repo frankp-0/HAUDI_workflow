@@ -42,9 +42,9 @@ fbm <- FBM.code256(
 fbm_samples <- readLines(opt$fbm_samples_file)
 
 ## Create phenotype
-pheno <- fread(opt$phenotype_file)
+pheno <- fread(opt$phenotype_file, colClasses = "character")
 pheno <- pheno[match(pheno[["#IID"]], fbm_samples), ]
-y <- pheno[[opt$phenotype]]
+y <- pheno[[opt$phenotype]] |> as.numeric()
 if (!is.null(opt$training_samples_file)) {
   training_samples <- readLines(opt$training_samples_file)
   y[!fbm_samples %in% training_samples] <- NA

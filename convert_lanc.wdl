@@ -88,7 +88,7 @@ task convert_lanc {
 
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.4"
+    docker: "frankpo/run_haudi:0.0.5"
     disks: "local-disk ~{disk_size_gb} SSD"
     memory: "~{memory_gb}G"
   }
