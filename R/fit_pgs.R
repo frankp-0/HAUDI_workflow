@@ -18,6 +18,7 @@ option_list <- list(
   make_option(c("--gamma_max"), type = "numeric"),
   make_option(c("--n_gamma"), type = "numeric"),
   make_option(c("--variants_file"), type = "character", default = NULL),
+  make_option(c("--phenotype_id_col"), type = "character", default = "#IID"),
   make_option(c("--n_folds"), type = "integer", default = 5)
 )
 opt <- parse_args(OptionParser(option_list = option_list))
@@ -43,7 +44,7 @@ fbm_samples <- readLines(opt$fbm_samples_file)
 
 ## Create phenotype
 pheno <- fread(opt$phenotype_file, colClasses = "character")
-pheno <- pheno[match(pheno[["#IID"]], fbm_samples), ]
+pheno <- pheno[match(pheno[[opt$phenotype_id_col]], fbm_samples), ]
 y <- pheno[[opt$phenotype]] |> as.numeric()
 if (!is.null(opt$training_samples_file)) {
   training_samples <- readLines(opt$training_samples_file)

@@ -61,6 +61,9 @@ workflow fit_haudi {
     # Subset the variants used in model fitting (one ID per line)
     File? variants_file
 
+    # Optional: specify phenotype sample ID column
+    String phenotype_id_col = "#IID"
+
     # Specify number of cross-validation folds
     Int n_folds = 5
 
@@ -84,6 +87,7 @@ workflow fit_haudi {
       gamma_max = gamma_max,
       n_gamma = n_gamma,
       variants_file = variants_file,
+      phenotype_id_col = phenotype_id_col,
       n_folds = n_folds,
       memory_gb = memory_gb
   }
@@ -112,6 +116,7 @@ task fit_haudi {
     Float gamma_max = 5
     Float n_gamma = 5
     File? variants_file
+    String phenotype_id_col
     Int n_folds
     Int memory_gb = 4
   }
@@ -134,6 +139,7 @@ task fit_haudi {
       --gamma_max ~{gamma_max} \
       --n_gamma ~{n_gamma} \
       ~{if defined(variants_file) then "--variants_file " + variants_file else ""} \
+      --phenotype_id_col ~{phenotype_id_col} \
       --n_folds ~{n_folds}
     >>>
 
@@ -144,7 +150,7 @@ task fit_haudi {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.5"
+    docker: "frankpo/run_haudi:0.0.6"
     disks: "local-disk ~{disk_size} SSD"
     memory: "~{memory_gb}G"
   }
