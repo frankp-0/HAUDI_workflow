@@ -44,7 +44,7 @@ fbm_samples <- readLines(opt$fbm_samples_file)
 
 ## Create phenotype
 pheno <- fread(opt$phenotype_file, colClasses = "character")
-pheno <- pheno[match(pheno[[opt$phenotype_id_col]], fbm_samples), ]
+pheno <- pheno[match(fbm_samples, pheno[[opt$phenotype_id_col]]), ]
 y <- pheno[[opt$phenotype]] |> as.numeric()
 if (!is.null(opt$training_samples_file)) {
   training_samples <- readLines(opt$training_samples_file)
