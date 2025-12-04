@@ -150,7 +150,7 @@ task fit_haudi {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.10"
+    docker: "frankpo/run_haudi:0.0.11"
     disks: "local-disk ~{disk_size} SSD"
     memory: "~{memory_gb}G"
   }
