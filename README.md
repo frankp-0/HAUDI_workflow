@@ -7,14 +7,15 @@ This repository contains WDL code, corresponding JSON input examples, test data,
 and a Dockerfile. The docker image corresponding the Dockerfile is available on
 Docker Hub: [frankpo/run_haudi](https://hub.docker.com/r/frankpo/run_haudi).
 
-This repository contains four workflows:
+This repository contains five workflows:
 
 - [vcf_to_plink2](#vcf_to_plink2): Convert a set of vcf files to plink2 pgen files
 - [convert_lanc](#convert_lanc): Convert a set of RFMix or FLARE local ancestry
 files to the ".lanc" format used in [admix-kit](https://kangchenghou.github.io/admix-kit/)
 - [make_fbm](#make_fbm): Convert ".lanc" local ancestry and PLINK2 files
 into the input Filebacked Big Matrix (FBM) used by HAUDI/GAUDI
-- [fit_gaudi](#fit_gaudi): Fit a HAUDI or GAUDI polygenic score
+- [fit_haudi](#fit_haudi): Fit a HAUDI or GAUDI polygenic score
+- [score_pgs](#score_pgs): Calculate a PGS score using ancestry-specific effect estimates
 
 ## vcf_to_plink2
 
@@ -123,7 +124,7 @@ info_file | Text file with info on FBM columns
 dims_file | File which reports FBM dimensions
 fbm_samples_file | File with ordered FBM sample IDs
 
-## fit_gaudi
+## fit_haudi
 
 This workflow fits a HAUDI or GAUDI polygenic score using a specially-formatted
 Filebacked Big Matrix (FBM) and a phenotype file.
@@ -164,3 +165,31 @@ output | description
 model_file | Serialized R object containing the model
 pgs_file | Table of ancestry-specific effect estimates
 effects_file | Calculated PGS for each sample in FBM
+
+## score_pgs
+
+This workflow takes a table of ancestry-specific effect estimates (such as those
+output by fit_haudi) and applies them to calculate a polygenic score for a set
+of samples.
+
+Variants are matched by ID, and variants that are not present in both the effects
+file and FBM file are ignored.
+
+The following inputs must be provided:
+
+input | description
+--- | ---
+bk_file | Backing file for FBM
+info_file | Text file with info on FBM columns
+dims_file | File which reports FBM dimensions
+fbm_samples_file | File with ordered FBM sample IDs
+effects_file | File with ancestry-specific effect estimates, such as output by fit_haudi
+model_populations | String with comma-separated list of populations in the effects file
+target_populations | String with comma-separated list of populations in the FBM file, ordered the same as model_populations
+out_file | String with the path where the PGS table will be written
+
+The following outputs are returned:
+
+output | description
+--- | ---
+pgs_file | Table with calculated PGS for each sample in the FBM

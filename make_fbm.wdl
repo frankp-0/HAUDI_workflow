@@ -145,7 +145,7 @@ task make_fbm {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.11"
+    docker: "frankpo/run_haudi:0.0.12"
     disks: "local-disk ~{disk_size_gb} SSD"
     memory: "~{memory_gb}G"
   }

@@ -139,7 +139,7 @@ task fit_haudi {
       --gamma_max ~{gamma_max} \
       --n_gamma ~{n_gamma} \
       ~{if defined(variants_file) then "--variants_file " + variants_file else ""} \
-      --phenotype_id_col ~{phenotype_id_col} \
+      --phenotype_id_col "~{phenotype_id_col}" \
       --n_folds ~{n_folds}
     >>>
 
@@ -150,7 +150,7 @@ task fit_haudi {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.11"
+    docker: "frankpo/run_haudi:0.0.12"
     disks: "local-disk ~{disk_size} SSD"
     memory: "~{memory_gb}G"
   }

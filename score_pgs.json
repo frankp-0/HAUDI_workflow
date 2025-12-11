@@ -1,0 +1,10 @@
+{
+  "score_pgs.bk_file": "./test_data/toy.bk",
+  "score_pgs.info_file": "./test_data/toy_info.txt",
+  "score_pgs.dims_file": "./test_data/toy_dims.txt",
+  "score_pgs.fbm_samples_file": "./test_data/toy_samples.txt",
+  "score_pgs.effects_file": "./test_data/toy_effects.txt",
+  "score_pgs.model_populations": "Pop0,Pop1",
+  "score_pgs.target_populations": "Pop0,Pop1",
+  "score_pgs.out_file": "toy_score.txt"
+}
