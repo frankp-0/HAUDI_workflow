@@ -20,3 +20,8 @@ workflows:
       primaryDescriptorPath: /fit_haudi.wdl
       testParameterFiles:
           - /fit_haudi.json
+    - name: score_pgs
+      subclass: WDL
+      primaryDescriptorPath: /score_pgs.wdl
+      testParameterFiles:
+          - /score_pgs.json
