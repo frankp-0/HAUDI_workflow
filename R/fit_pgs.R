@@ -84,6 +84,10 @@ if (opt$method == "GAUDI") {
     beta = beta
   )
   dt_effect <- dcast(dt_effect, snps ~ anc, value.var = "beta")
+  setnames(dt_effect,
+    old = setdiff(names(dt_effect), "snps"),
+    new = paste0("beta_", setdiff(names(dt_effect), "snps"))
+  )
 
   # write results
   saveRDS(mod, file = paste0(opt$output_prefix, "_model.rds"))
