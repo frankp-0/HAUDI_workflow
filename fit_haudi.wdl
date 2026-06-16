@@ -17,6 +17,7 @@
 #   - The min, max, and total number of gamma values (used to construct array of
 #   tuning parameters)
 #   - The number of CV folds (default = 5)
+#   - A covariates file (only for HAUDI, not GAUDI)
 #
 # Output files:
 #   - {output_prefix}_model.rds: Serialized R object containing the model
@@ -50,6 +51,17 @@ workflow fit_haudi {
     # The name of the phenotype column in the phenotype_file
     String phenotype
 
+    # Optional: specify phenotype sample ID column
+    String phenotype_id_col = "#IID"
+
+    # Covariate file with same format as phenotype file. Must have an "#IID"
+    # column for samples and at least one additional column for the covariates.
+    # This argument is ignored for method="GAUDI".
+    File? covar_file
+
+    # Optional: specify covariate sample ID column
+    String covar_id_col = "#IID"
+
     # Output prefix for model, effects, and PGS results
     String output_prefix
 
@@ -61,8 +73,6 @@ workflow fit_haudi {
     # Subset the variants used in model fitting (one ID per line)
     File? variants_file
 
-    # Optional: specify phenotype sample ID column
-    String phenotype_id_col = "#IID"
 
     # Specify number of cross-validation folds
     Int n_folds = 5
@@ -82,6 +92,8 @@ workflow fit_haudi {
       training_samples_file = training_samples_file,
       phenotype_file = phenotype_file,
       phenotype = phenotype,
+      covar_file = covar_file,
+      covar_id_col = covar_id_col,
       output_prefix = output_prefix,
       gamma_min = gamma_min,
       gamma_max = gamma_max,
@@ -111,6 +123,8 @@ task fit_haudi {
     File? training_samples_file
     File phenotype_file
     String phenotype
+    File? covar_file
+    String? covar_id_col
     String output_prefix
     Float gamma_min = 0.01
     Float gamma_max = 5
@@ -134,6 +148,8 @@ task fit_haudi {
       ~{if defined(training_samples_file) then "--training_samples_file " + training_samples_file else ""} \
       --phenotype_file ~{phenotype_file} \
       --phenotype ~{phenotype} \
+      ~{if defined(covar_file) then "--covar_file " + covar_file else ""} \
+      --covar_id_col "~{covar_id_col}" \
       --output_prefix ~{output_prefix} \
       --gamma_min ~{gamma_min} \
       --gamma_max ~{gamma_max} \
@@ -150,7 +166,7 @@ task fit_haudi {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.0.13"
+    docker: "frankpo/run_haudi:0.1.0"
     disks: "local-disk ~{disk_size} SSD"
     memory: "~{memory_gb}G"
   }

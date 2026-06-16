@@ -112,7 +112,6 @@ variants_file | A file with one variant ID per line used to subset the FBM
 min_ac | The minimum count to retain an FBM column (anc-specific or total genotype)
 samples_file | A file with one sample ID per line used to subset the FBM
 chunk_size | Max number of variants to read  from .pgen file at a time (default 400)
-phenotype_id_col | A string with the name of the sample ID column in the phenotype file (default "\#IID")
 disk_size_gb | Disk size in GB to use (default 16)
 memory_gb | Memory in GB to use (default 4)
 
@@ -131,6 +130,9 @@ Filebacked Big Matrix (FBM) and a phenotype file.
 
 It is assumed that the phenotype file is tab, space, or comma-separated
 and contains a column "#IID" and at least one additional phenotype column.
+A covariate file may be provided in the same format, but is ignored for GAUDI.
+The output pgs_file uses only the estimated genetic effects for prediction,
+ignoring the covariate effects.
 
 The following inputs must be provided:
 
@@ -151,6 +153,9 @@ The following inputs are optional:
 input | description
 --- | ---
 training_samples_file | A file with training samples, one ID per line
+phenotype_id_col | A string with the name of the sample ID column in the phenotype file (default "\#IID")
+covar_file | A file containing covariates, formatted as the phenotype file. This option is ignored for method="HAUDI"
+covar_id_col | A string with the name of the sample ID column in the covariate file (default "\#IID")
 gamma_min | The minimum value for the gamma tuning parameter
 gamma_max | The max value for the gamma tuning parameter
 n_gamma | The number of values to test for the gamma tuning parameter

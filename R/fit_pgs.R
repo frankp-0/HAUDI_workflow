@@ -13,6 +13,8 @@ option_list <- list(
   make_option(c("--training_samples_file"), type = "character", default = NULL),
   make_option(c("--phenotype_file"), type = "character"),
   make_option(c("--phenotype"), type = "character"),
+  make_option(c("--covar_file"), type = "character", default = NULL),
+  make_option(c("--covar_id_col"), type = "character", default = "#IID"),
   make_option(c("--output_prefix"), type = "character"),
   make_option(c("--gamma_min"), type = "numeric"),
   make_option(c("--gamma_max"), type = "numeric"),
@@ -42,6 +44,23 @@ fbm <- FBM.code256(
 )
 fbm_samples <- readLines(opt$fbm_samples_file)
 
+## Create covariates
+covar_m <- NULL
+covar_id <- NULL
+if (!is.null(opt$covar_file)) {
+  covar <- fread(opt$covar_file)
+
+  if (!is.null(opt$training_samples_file)) {
+    training_samples <- readLines(opt$training_samples_file)
+    covar <- covar[covar_id_col %in% training_samples,]
+  }
+
+  covar <- covar[match(fbm_samples, covar[[opt$covar_id_col]]), ]
+  covar <- na.omit(covar)
+  covar_id <- covar[[opt$covar_id_col]]
+  covar_m <- covar_from_df(covar[, .SD, .SDcols=!opt$covar_id_col])
+}
+
 ## Create phenotype
 pheno <- fread(opt$phenotype_file, colClasses = "character")
 pheno <- pheno[match(fbm_samples, pheno[[opt$phenotype_id_col]]), ]
@@ -49,6 +68,10 @@ y <- pheno[[opt$phenotype]] |> as.numeric()
 if (!is.null(opt$training_samples_file)) {
   training_samples <- readLines(opt$training_samples_file)
   y[!fbm_samples %in% training_samples] <- NA
+}
+if (!is.null(covar_id)) {
+  y[!fbm_samples %in% covar_id] <- NA
+  covar_m <- covar_m[covar_id %in% pheno[[opt$phenotype_id_col]],]
 }
 ind_train <- which(!is.na(y))
 
@@ -103,13 +126,19 @@ if (opt$method == "GAUDI") {
     gamma_vec = seq(opt$gamma_min, opt$gamma_max, length.out = opt$n_gamma),
     k = opt$n_folds,
     family = opt$family,
-    variants = variants
+    variants = variants,
+    covar.train = covar_m
   )
 
   # get PGS
+  covar_pred <- NULL
+  if (!is.null(covar_m)) {
+    covar_pred <- matrix(0, nrow=length(fbm_samples), ncol=ncol(covar_m))
+    covar_pred[] <- rep(colMeans(covar_m), each = length(fbm_samples))
+  }
   dt_pgs <- data.table(
     sample = fbm_samples,
-    score = predict(result$model, fbm)
+    score = predict(result$model, fbm, covar.row=covar_pred)
   )
 
   # get effect sizes and snps
