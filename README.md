@@ -154,7 +154,7 @@ input | description
 --- | ---
 training_samples_file | A file with training samples, one ID per line
 phenotype_id_col | A string with the name of the sample ID column in the phenotype file (default "\#IID")
-covar_file | A file containing covariates, formatted as the phenotype file. This option is ignored for method="HAUDI"
+covar_file | A file containing covariates, formatted as the phenotype file. This option is ignored for method="GAUDI"
 covar_id_col | A string with the name of the sample ID column in the covariate file (default "\#IID")
 gamma_min | The minimum value for the gamma tuning parameter
 gamma_max | The max value for the gamma tuning parameter
