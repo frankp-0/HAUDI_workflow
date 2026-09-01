@@ -79,6 +79,7 @@ workflow fit_haudi {
 
     # Resources
     Int memory_gb = 4
+    Int disk_gb_extra = 4
   }
 
   call fit_haudi {
@@ -101,7 +102,8 @@ workflow fit_haudi {
       variants_file = variants_file,
       phenotype_id_col = phenotype_id_col,
       n_folds = n_folds,
-      memory_gb = memory_gb
+      memory_gb = memory_gb,
+      disk_gb_extra = disk_gb_extra
   }
 
   output {
@@ -133,9 +135,10 @@ task fit_haudi {
     String phenotype_id_col
     Int n_folds
     Int memory_gb = 4
+    Int disk_gb_extra = 4
   }
 
-  Int disk_size = ceil(size(bk_file, "GB") + size(info_file, "GB") + size(phenotype_file, "GB") + 4)
+  Int disk_size = ceil(size(bk_file, "GB") + size(info_file, "GB") + size(phenotype_file, "GB") + disk_gb_extra)
 
   command <<<
     Rscript /scripts/fit_pgs.R \
