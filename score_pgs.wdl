@@ -82,6 +82,6 @@ task score_pgs {
   }
 
   runtime {
-    docker: "frankpo/run_haudi:0.2.0"
+    docker: "frankpo/run_haudi:0.3.0"
   }
 }
