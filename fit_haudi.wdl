@@ -66,8 +66,8 @@ workflow fit_haudi {
     String output_prefix
 
     # Characterize the sequence of gamma tuning parameter values to use
-    Float gamma_min = 0.01
-    Float gamma_max = 5
+    Float gamma_min = 0.001
+    Float gamma_max = 0.999
     Float n_gamma = 5
 
     # Subset the variants used in model fitting (one ID per line)
