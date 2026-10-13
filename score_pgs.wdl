@@ -33,6 +33,10 @@ workflow score_pgs {
 
     # Output file
     String out_file
+
+    # Resources
+    Int disk_size_gb = 16
+    Int memory_gb = 4
   }
 
   call score_pgs {
@@ -44,7 +48,9 @@ workflow score_pgs {
       model_populations = model_populations,
       target_populations = target_populations,
       effects_file = effects_file,
-      out_file = out_file
+      out_file = out_file,
+      disk_size_gb = disk_size_gb,
+      memory_gb = memory_gb
   }
 
   output {
@@ -63,6 +69,8 @@ task score_pgs {
     String target_populations
     File effects_file
     String out_file
+    Int disk_size_gb
+    Int memory_gb
   }
 
   command <<<
@@ -83,5 +91,7 @@ task score_pgs {
 
   runtime {
     docker: "frankpo/run_haudi:0.3.0"
+    disks: "local-disk ~{disk_size_gb} SSD"
+    memory: "~{memory_gb}G"
   }
 }
